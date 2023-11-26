@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": false,
+    "outDir": "./dist/",
+
+    // Generate sourcemap files for debugging
+    "sourceMap": false,
+
+    // Needed to compile
+    "types" : ["node"]
+  },
+  "include": ["src/**/*.*ts*"],
+  "exclude": ["node_modules", "src/**/*.spec.*ts*"]
+}

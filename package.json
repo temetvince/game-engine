@@ -1,0 +1,37 @@
+{
+  "name": "autarch-celestia",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "npm run typescript && node dist/index.mjs",
+    "update": "ncu -u",
+    "typescript": "npm run lint && npm run format && tsc",
+    "lint": "eslint \"src/**/*.{cjs,mjs,js,jsx,ts,tsx,mts,cts}\" --quiet --fix",
+    "format": "prettier --write \"src/**/*.{cjs,mjs,js,jsx,ts,tsx,mts,cts,json,html,css}\" \"src/**/*.{cjs,mjs,js,jsx,ts,tsx,mts,cts,json,html,css}\""
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@types/node": "^20.8.9",
+    "@typescript-eslint/eslint-plugin": "^6.9.0",
+    "eslint": "^8.52.0",
+    "eslint-config-prettier": "^9.0.0",
+    "npm": "^10.2.1",
+    "npm-check-updates": "^16.14.6",
+    "prettier": "^3.0.3",
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "raylib": "^0.14.0"
+  }
+}
