@@ -22,14 +22,14 @@
     ]
   },
   "devDependencies": {
-    "@types/node": "^20.8.9",
-    "@typescript-eslint/eslint-plugin": "^6.9.0",
-    "eslint": "^8.52.0",
-    "eslint-config-prettier": "^9.0.0",
-    "npm": "^10.2.1",
-    "npm-check-updates": "^16.14.6",
-    "prettier": "^3.0.3",
-    "typescript": "^5.2.2"
+    "@types/node": "^20.10.4",
+    "@typescript-eslint/eslint-plugin": "^6.13.2",
+    "eslint": "^8.55.0",
+    "eslint-config-prettier": "^9.1.0",
+    "npm": "^10.2.5",
+    "npm-check-updates": "^16.14.11",
+    "prettier": "^3.1.0",
+    "typescript": "^5.3.3"
   },
   "dependencies": {
     "raylib": "^0.14.0"
