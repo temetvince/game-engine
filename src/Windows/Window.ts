@@ -14,7 +14,6 @@ export class Window {
 
       while (!r.WindowShouldClose()) {
          params.getDraw?.();
-         params.getExecute?.();
       }
 
       r.CloseWindow();

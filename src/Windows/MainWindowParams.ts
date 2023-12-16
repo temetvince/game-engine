@@ -1,6 +1,6 @@
 import { GetECS } from "../EntityComponentSystem/GetECS";
 import { WindowParams } from "./WindowParams";
-import * as r from "raylib";
+import r from "raylib";
 
 /**
  * Represents the parameters for the main window of the game engine.
@@ -15,27 +15,9 @@ export class MainWindowParams implements WindowParams {
    }
 
    /**
-    * Draws the content of the main window.
-    */
-   public getDraw() {
-      r.BeginDrawing();
-
-      r.ClearBackground(r.RAYWHITE);
-      r.DrawText(
-         "Congrats! You created your first node-raylib window!",
-         120,
-         200,
-         20,
-         r.LIGHTGRAY,
-      );
-
-      r.EndDrawing();
-   }
-
-   /**
     * Executes the game logic.
     */
-   public getExecute() {
+   public getDraw() {
       const ecs = GetECS.getInstance();
       ecs.update();
    }

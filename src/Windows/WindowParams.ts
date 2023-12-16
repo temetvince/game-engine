@@ -8,12 +8,7 @@ export interface WindowParams {
    getInit: () => void;
 
    /**
-    * Gets the draw function for the window.
-    */
-   getDraw?: () => void;
-
-   /**
     * Gets the execution function for the window.
     */
-   getExecute?: () => void;
+   getDraw?: () => void;
 }

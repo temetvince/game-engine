@@ -2,6 +2,8 @@ import { Position } from "../Components/Position";
 import { EntityComponentSystem } from "./EntityComponentSystem";
 import { System } from "./System";
 import { GetSystems } from "../Systems/GetSystems";
+import { Sprite } from "../Components/Sprite";
+import { Velocity } from "../Components/Velocity";
 
 /**
  * The Singleton class defines the `getInstance` method that lets clients access
@@ -32,6 +34,8 @@ export class GetECS {
 
          const entity = GetECS.instance.addEntity();
          GetECS.instance.addComponent(entity, new Position(0, 0));
+         GetECS.instance.addComponent(entity, new Velocity(1, 1));
+         GetECS.instance.addComponent(entity, new Sprite());
       }
 
       return GetECS.instance;
