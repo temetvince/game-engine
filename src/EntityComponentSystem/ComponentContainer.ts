@@ -1,5 +1,4 @@
 import { Component } from "./Component.js";
-import { ComponentClass } from "./ComponentClass.js";
 
 /**
  * This custom container is so that calling code can provide the
@@ -23,18 +22,37 @@ import { ComponentClass } from "./ComponentClass.js";
 export class ComponentContainer {
    private map = new Map<Function, Component>();
 
+   /**
+    * Adds a component to the container.
+    * @param component - The component to add.
+    */
    public add(component: Component): void {
       this.map.set(component.constructor, component);
    }
 
+   /**
+    * Retrieves a component of the specified type from the container.
+    * @param componentClass - The class of the component to retrieve.
+    * @returns The component of the specified type, or undefined if not found.
+    */
    public get<T extends Component>(componentClass: ComponentClass<T>): T {
       return this.map.get(componentClass) as T;
    }
 
+   /**
+    * Checks if the container has a component of the specified type.
+    * @param componentClass - The class of the component to check.
+    * @returns True if the container has the component, false otherwise.
+    */
    public has(componentClass: Function): boolean {
       return this.map.has(componentClass);
    }
 
+   /**
+    * Checks if the container has all the specified components.
+    * @param componentClasses - An iterable of component classes to check.
+    * @returns True if the container has all the components, false otherwise.
+    */
    public hasAll(componentClasses: Iterable<Function>): boolean {
       for (const cls of componentClasses) {
          if (!this.map.has(cls)) {
@@ -44,6 +62,10 @@ export class ComponentContainer {
       return true;
    }
 
+   /**
+    * Deletes a component from the container.
+    * @param componentClass - The class of the component to delete.
+    */
    public delete(componentClass: Function): void {
       this.map.delete(componentClass);
    }

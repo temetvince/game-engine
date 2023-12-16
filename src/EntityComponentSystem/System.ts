@@ -1,5 +1,4 @@
-import { Entity } from "./Entity.js";
-import { ECS } from "./EntityComponentSystem.js";
+import { EntityComponentSystem } from "./EntityComponentSystem.js";
 
 /**
  * A System cares about a set of Components. It will run on every Entity
@@ -33,5 +32,5 @@ export abstract class System {
     * code, so they need to be able to create, mutate, and destroy
     * Entities and Components.
     */
-   public ecs!: ECS;
+   public ecs!: EntityComponentSystem;
 }

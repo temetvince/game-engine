@@ -16,8 +16,7 @@
     "noEmit": false,
     "outDir": "./dist/",
     "newLine": "LF",
-    "typeRoots": ["./node_modules/@types", "./src/@types"],
-
+    "typeRoots": ["./node_modules/@types", "./src/**/@types"],
 
     // Generate sourcemap files for debugging
     "sourceMap": false,
@@ -25,6 +24,6 @@
     // Needed to compile
     "types" : ["node"]
   },
-  "include": ["src/**/*.*ts*"],
+  "include": ["src/**/*.ts"],
   "exclude": ["node_modules", "src/**/*.spec.*ts*"]
 }
