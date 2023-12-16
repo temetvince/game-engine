@@ -1,5 +1,5 @@
 import r from "raylib";
-import { WindowParams } from "./WindowParams/WindowParams";
+import { WindowParams } from "./WindowParams";
 
 /**
  * Represents a window in the game engine.

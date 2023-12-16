@@ -1,6 +1,7 @@
-import { EntityComponentSystem } from "./EntityComponentSystem/EntityComponentSystem";
-import { System } from "./EntityComponentSystem/System";
-import { GetSystems } from "./Systems/GetSystems";
+import { Position } from "../Components/Position";
+import { EntityComponentSystem } from "./EntityComponentSystem";
+import { System } from "./System";
+import { GetSystems } from "../Systems/GetSystems";
 
 /**
  * The Singleton class defines the `getInstance` method that lets clients access
@@ -28,6 +29,9 @@ export class GetECS {
          GetSystems().forEach((system: System) => {
             GetECS.instance.addSystem(system);
          });
+
+         const entity = GetECS.instance.addEntity();
+         GetECS.instance.addComponent(entity, new Position(0, 0));
       }
 
       return GetECS.instance;

@@ -1,4 +1,4 @@
-import { GetECS } from "../GetECS";
+import { GetECS } from "../EntityComponentSystem/GetECS";
 import { WindowParams } from "./WindowParams";
 import * as r from "raylib";
 
