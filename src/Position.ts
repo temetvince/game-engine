@@ -1,4 +1,4 @@
-import { Component } from "./Component.mjs";
+import { Component } from "./Component.js";
 
 export class Position extends Component {
    constructor(

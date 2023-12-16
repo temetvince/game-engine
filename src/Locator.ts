@@ -1,6 +1,6 @@
-import { Entity } from "./Entity.mjs";
-import { Position } from "./Position.mjs";
-import { System } from "./System.mjs";
+import { Entity } from "./Entity.js";
+import { Position } from "./Position.js";
+import { System } from "./System.js";
 
 export class Locator extends System {
    componentsRequired = new Set<Function>([Position]);

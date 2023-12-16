@@ -27,7 +27,7 @@ module.exports = {
    ],
    overrides: [
       {
-         files: ["*.mts", "*.spec.ts*", "*.test.ts*"],
+         files: ["*.ts", "*.spec.ts*", "*.test.ts*"],
          rules: {
             "@typescript-eslint/no-empty-function": "off",
             "@typescript-eslint/ban-types": "off",

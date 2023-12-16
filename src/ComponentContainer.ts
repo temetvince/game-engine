@@ -1,5 +1,5 @@
-import { Component } from "./Component.mjs";
-import { ComponentClass } from "./ComponentClass.mjs";
+import { Component } from "./Component.js";
+import { ComponentClass } from "./ComponentClass.js";
 
 /**
  * This custom container is so that calling code can provide the

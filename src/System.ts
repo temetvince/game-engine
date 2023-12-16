@@ -1,5 +1,5 @@
-import { Entity } from "./Entity.mjs";
-import { ECS } from "./EntityComponentSystem.mjs";
+import { Entity } from "./Entity.js";
+import { ECS } from "./EntityComponentSystem.js";
 
 /**
  * A System cares about a set of Components. It will run on every Entity

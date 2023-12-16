@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "npm run typescript && node dist/index.mjs",
+    "start": "npm run typescript && node dist/index.js",
     "update": "ncu -u",
     "typescript": "npm run lint && npm run format && tsc",
     "lint": "eslint \"src/**/*.{cjs,mjs,js,jsx,ts,tsx,mts,cts}\" --quiet --fix",

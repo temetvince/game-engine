@@ -1,4 +1,4 @@
-import { Component } from "./Component.mjs";
+import { Component } from "./Component.js";
 
 /**
  * This type is so functions like the ComponentContainer's get(...) will

@@ -1,7 +1,7 @@
 import r from "raylib";
-import { ECS } from "./EntityComponentSystem.mjs";
-import { Position } from "./Position.mjs";
-import { Locator } from "./Locator.mjs";
+import { ECS } from "./EntityComponentSystem.js";
+import { Position } from "./Position.js";
+import { Locator } from "./Locator.js";
 
 const screenWidth = 800;
 const screenHeight = 450;

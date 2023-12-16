@@ -9,12 +9,15 @@
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
-    "module": "ESNext",
-    "moduleResolution": "node",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": false,
     "outDir": "./dist/",
+    "newLine": "LF",
+    "typeRoots": ["./node_modules/@types", "./src/@types"],
+
 
     // Generate sourcemap files for debugging
     "sourceMap": false,

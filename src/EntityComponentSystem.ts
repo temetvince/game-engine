@@ -1,7 +1,7 @@
-import { Component } from "./Component.mjs";
-import { ComponentContainer } from "./ComponentContainer.mjs";
-import { Entity } from "./Entity.mjs";
-import { System } from "./System.mjs";
+import { Component } from "./Component.js";
+import { ComponentContainer } from "./ComponentContainer.js";
+import { Entity } from "./Entity.js";
+import { System } from "./System.js";
 
 /**
  * The ECS is the main driver; it's the backbone of the engine that
