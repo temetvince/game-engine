@@ -4,4 +4,16 @@
  *
  * Components have no API to fulfill.
  */
-export abstract class Component {}
+export abstract class Component {
+   /**
+    * Indicates whether the component has been modified and needs to be updated.
+    */
+   public isDirty: boolean = true;
+
+   /**
+    * Resets the dirty flag of the component.
+    */
+   public resetDirty(): void {
+      this.isDirty = false;
+   }
+}

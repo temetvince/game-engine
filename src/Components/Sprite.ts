@@ -1,4 +1,4 @@
-import { Component } from "../EntityComponentSystem/Component.js";
+import { Component } from "../EntityComponentSystem/Component";
 
 /**
  * Represents a sprite component.

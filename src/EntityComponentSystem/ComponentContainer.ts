@@ -1,4 +1,4 @@
-import { Component } from "./Component.js";
+import { Component } from "./Component";
 
 /**
  * This custom container is so that calling code can provide the
@@ -37,6 +37,28 @@ export class ComponentContainer {
     */
    public get<T extends Component>(componentClass: ComponentClass<T>): T {
       return this.map.get(componentClass) as T;
+   }
+
+   /**
+    * Checks if any component in the container is marked as dirty.
+    * @returns {boolean} True if any component is dirty, false otherwise.
+    */
+   public isDirty(): boolean {
+      for (const key of this.map.keys()) {
+         if (this.map.get(key)?.isDirty) {
+            return true;
+         }
+      }
+      return false;
+   }
+
+   /**
+    * Resets the dirty state of the specified component class.
+    *
+    * @param componentClass - The component class to reset the dirty state for.
+    */
+   public resetDirty(componentClass: Function): void {
+      this.map.get(componentClass)?.resetDirty();
    }
 
    /**

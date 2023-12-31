@@ -1,4 +1,5 @@
-import { EntityComponentSystem } from "./EntityComponentSystem.js";
+import { P5CanvasInstance, SketchProps } from "@p5-wrapper/react";
+import { EntityComponentSystem } from "./EntityComponentSystem";
 
 /**
  * A System cares about a set of Components. It will run on every Entity
@@ -23,9 +24,20 @@ export abstract class System {
    public abstract componentsRequired: Set<Function>;
 
    /**
+    * Set of Component classes. If *ANY* of them become dirty, the
+    * System will be given that Entity during its update(). Components
+    * here need *not* be tracked by `componentsRequired`. To make this
+    * opt-in, we default this to the empty set.
+    */
+   public dirtyComponents: Set<Function> = new Set();
+
+   /**
     * update() is called on the System every frame.
     */
-   public abstract update(entities: Set<Entity>): void;
+   public abstract update(
+      entities: Set<Entity>,
+      p5?: P5CanvasInstance<SketchProps>,
+   ): void;
 
    /**
     * The ECS is given to all Systems. Systems contain most of the game

@@ -1,6 +1,7 @@
-import { Component } from "./Component.js";
-import { ComponentContainer } from "./ComponentContainer.js";
-import { System } from "./System.js";
+import { P5CanvasInstance, SketchProps } from "@p5-wrapper/react";
+import { Component } from "./Component";
+import { ComponentContainer } from "./ComponentContainer";
+import { System } from "./System";
 
 /**
  * The ECS is the main driver; it's the backbone of the engine that
@@ -9,9 +10,6 @@ import { System } from "./System.js";
  * multiple for different purposes.
  */
 export class EntityComponentSystem {
-   getSystems() {
-      throw new Error("Method not implemented.");
-   }
    // Main state
    private entities = new Map<Entity, ComponentContainer>();
    private systems = new Map<System, Set<Entity>>();
@@ -150,11 +148,23 @@ export class EntityComponentSystem {
     * updates all Systems, then destroys any Entities that were marked
     * for removal.
     */
-   public update(): void {
-      // Update all systems. (Later, we'll add a way to specify the
-      // update order.)
+   public update(p5: P5CanvasInstance<SketchProps>): void {
+      // Update all systems.
       for (const [system, entities] of this.systems.entries()) {
-         system.update(entities);
+         const entitiesToUse = new Set<Entity>();
+         for (const entity of entities) {
+            if (this.getComponents(entity)?.isDirty()) {
+               entitiesToUse.add(entity);
+
+               for (const component of system.dirtyComponents) {
+                  if (this.getComponents(entity)?.has(component)) {
+                     this.getComponents(entity)?.resetDirty(component);
+                     break;
+                  }
+               }
+            }
+         }
+         system.update(entitiesToUse, p5);
       }
 
       // Remove any entities that were marked for deletion during the

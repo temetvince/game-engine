@@ -1,9 +1,14 @@
-# Typescript App
+# A game engine written in Typescript
 
-Autarch Celestia
+### Stack
+* Typescript
+* React
+* Webpack
+* Babel
+* ESLint
+* Prettier
+* P5JS
 
-## Instructions
-Start with:
-```bash
-$ npm start
-```
+### Updates
+Updating provided by npm-check-updates:
+* <code>$ npm run update</code>

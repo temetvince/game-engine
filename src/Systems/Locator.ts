@@ -1,5 +1,5 @@
-import { System } from "../EntityComponentSystem/System.js";
-import { Position } from "../Components/Position.js";
+import { System } from "../EntityComponentSystem/System";
+import { Position } from "../Components/Position";
 
 /**
  * The Locator class is a system that tracks the position of entities in the game.
@@ -15,7 +15,9 @@ export class Locator extends System {
    update(entities: Set<Entity>): void {
       for (const entity of entities) {
          const position = this.ecs.getComponents(entity)?.get(Position);
-         console.log(`Entity ${entity} is at ${position?.x}, ${position?.y}`);
+         console.log(
+            `Entity ${entity} is at ${position?.getX}, ${position?.getY}`,
+         );
       }
    }
 }

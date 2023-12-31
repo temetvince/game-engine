@@ -1,14 +1,44 @@
-import { Component } from "../EntityComponentSystem/Component.js";
+import { Component } from "../EntityComponentSystem/Component";
 
 /**
  * Represents the position of an entity in the game.
  */
 export class Position extends Component {
    constructor(
-      public x: number,
-      public y: number,
+      private x: number,
+      private y: number,
    ) {
       super();
+   }
+
+   set(x: number, y: number) {
+      this.x = x;
+      this.y = y;
+      this.isDirty = true;
+
+      return this;
+   }
+
+   setX(x: number) {
+      this.x = x;
+      this.isDirty = true;
+
+      return this;
+   }
+
+   getX() {
+      return this.x;
+   }
+
+   setY(y: number) {
+      this.y = y;
+      this.isDirty = true;
+
+      return this;
+   }
+
+   getY() {
+      return this.y;
    }
 
    /**
