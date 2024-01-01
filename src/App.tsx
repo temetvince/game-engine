@@ -14,7 +14,7 @@ const sketch: Sketch = (p5) => {
    let ecs: EntityComponentSystem | null = null;
 
    p5.setup = () => {
-      p5.createCanvas(600, 400);
+      p5.createCanvas(p5.windowWidth, p5.windowHeight);
       ecs = setupGame();
    };
 
