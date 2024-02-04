@@ -19,7 +19,7 @@ const sketch: Sketch = (p5) => {
    };
 
    p5.draw = () => {
-      p5.background(250);
+      p5.background(0);
       ecs?.update(p5);
    };
 };

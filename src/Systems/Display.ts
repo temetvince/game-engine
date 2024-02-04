@@ -19,7 +19,7 @@ export class Display extends System {
          const position = this.ecs.getComponents(entity)?.get(Position);
          //const sprite = this.ecs.getComponents(entity)?.get(Sprite);
          if (p5) {
-            p5.stroke("purple");
+            p5.stroke("orange");
             p5.strokeWeight(10);
             p5.point(position!.getX(), position!.getY());
          }
