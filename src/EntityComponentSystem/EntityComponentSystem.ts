@@ -16,7 +16,7 @@ export class EntityComponentSystem {
 
    // Bookkeeping for entities.
    private nextEntityID = this.createUUID();
-   private entitiesToDestroy = new Array<Entity>();
+   private entitiesToDestroy: Entity[] = [];
 
    /**
     * Generates a UUID (Universally Unique Identifier) using a combination of timestamp and random numbers.
@@ -24,23 +24,20 @@ export class EntityComponentSystem {
     */
    private createUUID(): string {
       let d = new Date().getTime();
-      //Time in microseconds since page-load or 0 if unsupported
       let d2 =
          (typeof performance !== "undefined" &&
             performance.now &&
             performance.now() * 1000) ||
          0;
+
       return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(
          /[xy]/g,
          function (c) {
-            //random number between 0 and 16
             let r = Math.random() * 16;
             if (d > 0) {
-               //Use timestamp until depleted
                r = (d + r) % 16 | 0;
                d = Math.floor(d / 16);
             } else {
-               //Use microseconds since page-load if supported
                r = (d2 + r) % 16 | 0;
                d2 = Math.floor(d2 / 16);
             }
@@ -67,6 +64,7 @@ export class EntityComponentSystem {
     * of the next `update()`. This way we avoid subtle bugs where an
     * Entity is removed mid-`update()`, with some Systems seeing it and
     * others not.
+    * @param entity - The entity to remove.
     */
    public removeEntity(entity: Entity): void {
       this.entitiesToDestroy.push(entity);
@@ -76,7 +74,6 @@ export class EntityComponentSystem {
 
    /**
     * Adds a component to an entity.
-    *
     * @param entity - The entity to add the component to.
     * @param component - The component to add.
     */
@@ -87,7 +84,6 @@ export class EntityComponentSystem {
 
    /**
     * Retrieves the components associated with the specified entity.
-    *
     * @param entity - The entity for which to retrieve the components.
     * @returns The component container associated with the entity, or undefined if the entity has no components.
     */
@@ -97,7 +93,6 @@ export class EntityComponentSystem {
 
    /**
     * Removes a component from an entity.
-    *
     * @param entity - The entity from which to remove the component.
     * @param componentClass - The class of the component to remove.
     */
@@ -110,26 +105,17 @@ export class EntityComponentSystem {
 
    /**
     * Adds a system to the Entity Component System.
-    *
     * @param system - The system to be added.
     */
    public addSystem(system: System): void {
-      // Checking invariant: systems should not have an empty
-      // Components list, or they'll run on every entity. Simply remove
-      // or special case this check if you do want a System that runs
-      // on everything.
-      if (system.componentsRequired.size == 0) {
-         console.warn("System not added: empty Components list.");
-         console.warn(system);
+      if (system.componentsRequired.size === 0) {
+         console.warn("System not added: empty Components list.", system);
          return;
       }
 
-      // Give system a reference to the ECS so it can actually do
-      // anything.
       system.ecs = this;
-
-      // Save system and set who it should track immediately.
       this.systems.set(system, new Set());
+
       for (const entity of this.entities.keys()) {
          this.checkEntitySystem(entity, system);
       }
@@ -147,59 +133,69 @@ export class EntityComponentSystem {
     * This is ordinarily called once per tick (e.g., every frame). It
     * updates all Systems, then destroys any Entities that were marked
     * for removal.
+    * @param p5 - The p5 instance to use for drawing.
     */
    public update(p5: P5CanvasInstance<SketchProps>): void {
-      // Update all systems.
       for (const [system, entities] of this.systems.entries()) {
          const entitiesToUse = new Set<Entity>();
-         for (const entity of entities) {
-            if (this.getComponents(entity)?.isDirty()) {
-               entitiesToUse.add(entity);
 
+         for (const entity of entities) {
+            const components = this.getComponents(entity);
+            if (components?.isDirty()) {
+               entitiesToUse.add(entity);
                for (const component of system.dirtyComponents) {
-                  if (this.getComponents(entity)?.has(component)) {
-                     this.getComponents(entity)?.resetDirty(component);
+                  if (components.has(component)) {
+                     components.resetDirty(component);
                      break;
                   }
                }
             }
          }
+
          system.update(entitiesToUse, p5);
       }
 
-      // Remove any entities that were marked for deletion during the
-      // update.
       while (this.entitiesToDestroy.length > 0) {
          this.destroyEntity(this.entitiesToDestroy.pop());
       }
    }
 
+   /**
+    * Destroys an entity and removes it from the system.
+    * @param entity - The entity to destroy.
+    */
    private destroyEntity(entity: Entity | undefined): void {
-      if (entity === undefined) {
-         return;
-      }
-
-      this.entities.delete(entity);
-      for (const entities of this.systems.values()) {
-         entities.delete(entity); // no-op if doesn't have it
+      if (entity) {
+         this.entities.delete(entity);
+         for (const entities of this.systems.values()) {
+            entities.delete(entity);
+         }
       }
    }
 
+   /**
+    * Checks if an entity meets the requirements for any systems and updates the system's entities accordingly.
+    * @param entity - The entity to check.
+    */
    private checkEntity(entity: Entity): void {
       for (const system of this.systems.keys()) {
          this.checkEntitySystem(entity, system);
       }
    }
 
+   /**
+    * Checks if an entity meets the requirements for a specific system and updates the system's entities accordingly.
+    * @param entity - The entity to check.
+    * @param system - The system to check against.
+    */
    private checkEntitySystem(entity: Entity, system: System): void {
       const have = this.entities.get(entity);
       const need = system.componentsRequired;
+
       if (have?.hasAll(need)) {
-         // should be in system
-         this.systems.get(system)?.add(entity); // no-op if in
+         this.systems.get(system)?.add(entity);
       } else {
-         // should not be in system
-         this.systems.get(system)?.delete(entity); // no-op if out
+         this.systems.get(system)?.delete(entity);
       }
    }
 }

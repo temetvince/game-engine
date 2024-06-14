@@ -7,20 +7,24 @@ import { Velocity } from "../Components/Velocity";
  */
 export class Mover extends System {
    componentsRequired = new Set<Function>([Velocity, Position]);
-
    public dirtyComponents = new Set<Function>([Position]);
 
    /**
-    * Updates the position of entities by incrementing their x and y coordinates by 1.
+    * Updates the position of entities based on their velocity.
     * @param entities - The set of entities to update.
     */
    update(entities: Set<Entity>): void {
       for (const entity of entities) {
-         const position = this.ecs.getComponents(entity)?.get(Position);
-         const velocity = this.ecs.getComponents(entity)?.get(Velocity);
+         const components = this.ecs.getComponents(entity);
+         if (!components) continue;
 
-         position?.setX(position!.getX() + velocity!.getX());
-         position?.setY(position!.getY() + velocity!.getY());
+         const position = components.get(Position);
+         const velocity = components.get(Velocity);
+
+         if (position && velocity) {
+            position.setX(position.getX() + velocity.getX());
+            position.setY(position.getY() + velocity.getY());
+         }
       }
    }
 }

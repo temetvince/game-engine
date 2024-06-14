@@ -14,10 +14,15 @@ export class Locator extends System {
     */
    update(entities: Set<Entity>): void {
       for (const entity of entities) {
-         const position = this.ecs.getComponents(entity)?.get(Position);
-         console.log(
-            `Entity ${entity} is at ${position?.getX}, ${position?.getY}`,
-         );
+         const components = this.ecs.getComponents(entity);
+         if (!components) continue;
+
+         const position = components.get(Position);
+         if (position) {
+            console.log(
+               `Entity ${entity} is at ${position.getX()}, ${position.getY()}`,
+            );
+         }
       }
    }
 }

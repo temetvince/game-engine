@@ -1,6 +1,5 @@
 /**
- * An entity is just an ID. This is used to look up its associated
- * Components.
+ * An entity is just an ID, represented as a string.
+ * This is used to look up its associated Components in the ECS framework.
  */
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 type Entity = string;

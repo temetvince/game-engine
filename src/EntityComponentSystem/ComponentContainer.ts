@@ -1,5 +1,7 @@
 import { Component } from "./Component";
 
+type ComponentClass<T extends Component> = new (...args: any[]) => T;
+
 /**
  * This custom container is so that calling code can provide the
  * Component *instance* when adding (e.g., add(new Position(...))), and
@@ -35,17 +37,19 @@ export class ComponentContainer {
     * @param componentClass - The class of the component to retrieve.
     * @returns The component of the specified type, or undefined if not found.
     */
-   public get<T extends Component>(componentClass: ComponentClass<T>): T {
+   public get<T extends Component>(
+      componentClass: ComponentClass<T>,
+   ): T | undefined {
       return this.map.get(componentClass) as T;
    }
 
    /**
     * Checks if any component in the container is marked as dirty.
-    * @returns {boolean} True if any component is dirty, false otherwise.
+    * @returns True if any component is dirty, false otherwise.
     */
    public isDirty(): boolean {
-      for (const key of this.map.keys()) {
-         if (this.map.get(key)?.isDirty) {
+      for (const component of this.map.values()) {
+         if (component.isDirty) {
             return true;
          }
       }
@@ -54,7 +58,6 @@ export class ComponentContainer {
 
    /**
     * Resets the dirty state of the specified component class.
-    *
     * @param componentClass - The component class to reset the dirty state for.
     */
    public resetDirty(componentClass: Function): void {

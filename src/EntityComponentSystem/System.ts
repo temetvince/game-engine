@@ -32,17 +32,19 @@ export abstract class System {
    public dirtyComponents: Set<Function> = new Set();
 
    /**
-    * update() is called on the System every frame.
-    */
-   public abstract update(
-      entities: Set<Entity>,
-      p5?: P5CanvasInstance<SketchProps>,
-   ): void;
-
-   /**
     * The ECS is given to all Systems. Systems contain most of the game
     * code, so they need to be able to create, mutate, and destroy
     * Entities and Components.
     */
    public ecs!: EntityComponentSystem;
+
+   /**
+    * update() is called on the System every frame.
+    * @param entities - The set of entities to update.
+    * @param p5 - The p5 instance to use for drawing.
+    */
+   public abstract update(
+      entities: Set<Entity>,
+      p5?: P5CanvasInstance<SketchProps>,
+   ): void;
 }
