@@ -12,7 +12,7 @@ import { GroupColor } from "./Systems/GroupColor";
 /**
  * The number of boids to initialize.
  */
-const numberOfBoids = 100;
+const numberOfBoids = 250;
 
 /**
  * Initializes the Entity Component System (ECS) and sets up the game entities and systems.
