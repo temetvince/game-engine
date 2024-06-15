@@ -1,9 +1,9 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
-import { App } from "./App.tsx";
+import { App } from "./App";
 
 /**
- * Initializes the React application by rendering the App component.
+ * Initializes and renders the React application.
  */
 function initializeReactApp() {
    const container = document.getElementById("root");
@@ -11,8 +11,12 @@ function initializeReactApp() {
    if (container) {
       const root = createRoot(container);
       root.render(<App />);
+   } else {
+      console.error(
+         "Root container not found. Unable to initialize the React app.",
+      );
    }
 }
 
-// Initialize the React application
+// Call the function to initialize the React application
 initializeReactApp();

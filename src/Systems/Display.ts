@@ -20,12 +20,32 @@ export class Display extends System {
       if (!p5) return;
 
       for (const entity of entities) {
-         const position = this.ecs.getComponents(entity)!.get(Position)!;
-         const color = this.ecs.getComponents(entity)!.get(Color)!;
+         const components = this.ecs.getComponents(entity);
+         if (!components) continue;
 
-         p5.stroke(color.getColor());
-         p5.strokeWeight(10);
-         p5.point(position.getX(), position.getY());
+         const position = components.get(Position);
+         const color = components.get(Color);
+
+         if (position && color) {
+            this.renderEntity(p5, position, color);
+         }
       }
+   }
+
+   /**
+    * Renders an individual entity on the canvas.
+    *
+    * @param p5 - The p5.js instance used for rendering.
+    * @param position - The Position component of the entity.
+    * @param color - The Color component of the entity.
+    */
+   private renderEntity(
+      p5: P5CanvasInstance<SketchProps>,
+      position: Position,
+      color: Color,
+   ): void {
+      p5.stroke(color.getColor());
+      p5.strokeWeight(10);
+      p5.point(position.getX(), position.getY());
    }
 }
