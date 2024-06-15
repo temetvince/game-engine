@@ -1,36 +1,31 @@
 import { P5CanvasInstance, SketchProps } from "@p5-wrapper/react";
 import { Position } from "../Components/Position";
-import { Sprite } from "../Components/Sprite";
+import { Color } from "../Components/Color";
 import { System } from "../EntityComponentSystem/System";
 
 /**
- * Represents a system responsible for displaying entities in the game.
+ * The Display system is responsible for rendering entities with a Position and Color component.
+ * It uses p5.js to draw points representing the entities on the canvas.
  */
 export class Display extends System {
-   componentsRequired = new Set<Function>([Position, Sprite]);
+   componentsRequired = new Set<Function>([Position, Color]);
 
    /**
-    * Renders the entities by drawing points at their positions.
-    * @param entities - The set of entities to update.
-    * @param p5 - The p5 instance to use for drawing.
+    * Updates the Display system, rendering all entities with a Position and Color component.
+    *
+    * @param entities - The set of entities to be updated and rendered.
+    * @param p5 - The p5.js instance used for rendering.
     */
-   update(entities: Set<Entity>, p5?: P5CanvasInstance<SketchProps>) {
-      if (!p5) {
-         return;
-      }
+   update(entities: Set<Entity>, p5: P5CanvasInstance<SketchProps>): void {
+      if (!p5) return;
 
       for (const entity of entities) {
-         const components = this.ecs.getComponents(entity);
-         if (!components) continue;
+         const position = this.ecs.getComponents(entity)!.get(Position)!;
+         const color = this.ecs.getComponents(entity)!.get(Color)!;
 
-         const position = components.get(Position);
-         // const sprite = components.get(Sprite);
-
-         if (position) {
-            p5.stroke("orange");
-            p5.strokeWeight(10);
-            p5.point(position.getX(), position.getY());
-         }
+         p5.stroke(color.getColor());
+         p5.strokeWeight(10);
+         p5.point(position.getX(), position.getY());
       }
    }
 }
